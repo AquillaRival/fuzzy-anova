@@ -1,0 +1,44 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# Environments
+.venv/
+env/
+venv/
+ENV/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Antigravity & IDE artifacts
+.system_generated/
+.idea/
+.vscode/
+
+# OS specific
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Virtual environment (Windows layout created in project root)
+Lib/
+Scripts/
+Include/
+pyvenv.cfg
+share/
+
+# Scratch / generated files
+scratch/
+test.py
+fuzzy_anova_report.txt
+wu35.pdf

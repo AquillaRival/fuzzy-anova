@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fuzzy-anova"
+version = "1.0.0"
+description = "One-Way Analysis of Variance (ANOVA) for Triangular Fuzzy Data based on Wu (2007)"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.8"
+authors = [
+    { name = "Harshit Trivedi" },
+    { name = "Dr. Masum Raj" },
+]
+maintainers = [
+    { name = "Harshit Trivedi" },
+    { name = "Dr. Masum Raj" },
+]
+keywords = [
+    "fuzzy",
+    "anova",
+    "statistics",
+    "triangular-fuzzy-number",
+    "fuzzy-logic",
+    "hypothesis-testing",
+    "analysis-of-variance",
+    "alpha-cut",
+    "wu-2007",
+    "mathematics",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Education",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Typing :: Typed",
+]
+dependencies = [
+    "numpy>=1.21",
+]
+
+[project.optional-dependencies]
+scipy = [
+    "scipy>=1.7",
+]
+dev = [
+    "scipy>=1.7",
+    "pytest>=7.0",
+    "build>=1.0.0",
+    "twine>=4.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/harsh/fuzzy-anova"
+Documentation = "https://github.com/harsh/fuzzy-anova#readme"
+Repository = "https://github.com/harsh/fuzzy-anova.git"
+Issues = "https://github.com/harsh/fuzzy-anova/issues"
+Changelog = "https://github.com/harsh/fuzzy-anova/blob/main/CHANGELOG.md"
+
+[project.scripts]
+fuzzy-anova = "fuzzy_anova:main"
+
+[tool.setuptools]
+py-modules = ["fuzzy_anova"]
+
+[tool.setuptools.package-data]
+"*" = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["."]
+python_files = ["test_fuzzy_anova.py"]

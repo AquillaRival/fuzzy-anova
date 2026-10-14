@@ -1,0 +1,11 @@
+include LICENSE
+include README.md
+include README_WALKTHROUGH.md
+include CHANGELOG.md
+include CITATION.cff
+include requirements.txt
+include requirements-dev.txt
+include py.typed
+include test_fuzzy_anova.py
+include test.py
+exclude *.pdf
