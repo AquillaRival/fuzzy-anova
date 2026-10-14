@@ -3,7 +3,7 @@ message: "If you use this software in your research or academic work, please cit
 type: software
 title: "fuzzy-anova: One-Way Analysis of Variance (ANOVA) for Triangular Fuzzy Data"
 abstract: "A Python library implementing one-way ANOVA for triangular fuzzy data, following Wu (2007)."
-version: 1.0.0
+version: 1.0.2
 date-released: 2026-10-14
 url: "https://github.com/AquillaRival/fuzzy-anova"
 repository-code: "https://github.com/AquillaRival/fuzzy-anova"
