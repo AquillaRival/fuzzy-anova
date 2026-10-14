@@ -79,6 +79,7 @@ jobs:
       url: https://pypi.org/p/fuzzy-anova
     permissions:
       id-token: write  # Mandatory for PyPI Trusted Publishing (OIDC)
+      contents: read   
 
     steps:
       - name: Download distribution artifacts
