@@ -1,14 +1,29 @@
 name: Tests & PyPI Release
 
+# ------------------------------------------------------------------
+# WHEN does this workflow run?
+# ------------------------------------------------------------------
 on:
   push:
-    branches: [ main, master ]
-    tags: [ 'v*' ]
+    branches: [ main, master ]   # Tests run on every push (PyPI release will NOT happen)
+    tags: [ 'v*' ]               # Pushing a tag like v1.0.1 triggers a release
   pull_request:
-    branches: [ main, master ]
-  workflow_dispatch:
+    branches: [ main, master ]   # Only tests run on PRs
+  workflow_dispatch:             # Manual run (from Actions tab)
+
+# Default read access for every job (security)
+permissions:
+  contents: read
+
+# Cancel previous runs if a new push arrives on the same branch; never cancel tag runs
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/tags/') }}
 
 jobs:
+  # ----------------------------------------------------------------
+  # JOB 1: test, tests run on 3 OS x 6 Python versions
+  # ----------------------------------------------------------------
   test:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -39,6 +54,10 @@ jobs:
           python fuzzy_anova.py --version
           python fuzzy_anova.py --demo
 
+  # ----------------------------------------------------------------
+  # JOB 2: build, create package, check, and test installation
+  # (runs only after tests pass)
+  # ----------------------------------------------------------------
   build-and-verify:
     needs: test
     runs-on: ubuntu-latest
@@ -55,6 +74,19 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install build twine
 
+      # Tag (v1.0.1) version must match pyproject.toml version
+      - name: Check tag matches package version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          python - <<'EOF'
+          import os, tomllib
+          tag = os.environ["GITHUB_REF_NAME"].lstrip("v")
+          with open("pyproject.toml", "rb") as f:
+              version = tomllib.load(f)["project"]["version"]
+          assert tag == version, f"Tag {tag} != pyproject.toml version {version}"
+          print(f"Version OK: {version}")
+          EOF
+
       - name: Build sdist and wheel
         run: |
           python -m build
@@ -63,12 +95,22 @@ jobs:
         run: |
           python -m twine check dist/*
 
+      # Smoke-test the built wheel by installing it in a clean environment
+      - name: Smoke-test the built wheel
+        run: |
+          python -m venv /tmp/testenv
+          /tmp/testenv/bin/pip install dist/*.whl
+          /tmp/testenv/bin/python -c "import fuzzy_anova; print('import ok')"
+
       - name: Upload dist artifacts
         uses: actions/upload-artifact@v4
         with:
           name: python-package-distributions
           path: dist/
 
+  # ----------------------------------------------------------------
+  # JOB 3: publish, runs only on tag push (v*)
+  # ----------------------------------------------------------------
   publish-to-pypi:
     name: Publish to PyPI
     needs: build-and-verify
@@ -78,10 +120,11 @@ jobs:
       name: pypi
       url: https://pypi.org/p/fuzzy-anova
     permissions:
-      id-token: write  # Mandatory for PyPI Trusted Publishing (OIDC)
-      contents: read   
+      id-token: write   # Required for PyPI Trusted Publishing (OIDC)
+      contents: read
 
     steps:
+      # Downloads the files created in Job 2 (no rebuild)
       - name: Download distribution artifacts
         uses: actions/download-artifact@v4
         with:
@@ -90,3 +133,5 @@ jobs:
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          skip-existing: true
