@@ -62,11 +62,11 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/harsh/fuzzy-anova"
-Documentation = "https://github.com/harsh/fuzzy-anova#readme"
-Repository = "https://github.com/harsh/fuzzy-anova.git"
-Issues = "https://github.com/harsh/fuzzy-anova/issues"
-Changelog = "https://github.com/harsh/fuzzy-anova/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/AquillaRival/fuzzy-anova"
+Documentation = "https://github.com/AquillaRival/fuzzy-anova#readme"
+Repository = "https://github.com/AquillaRival/fuzzy-anova.git"
+Issues = "https://github.com/AquillaRival/fuzzy-anova/issues"
+Changelog = "https://github.com/AquillaRival/fuzzy-anova/blob/main/CHANGELOG.md"
 
 [project.scripts]
 fuzzy-anova = "fuzzy_anova:main"

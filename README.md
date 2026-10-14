@@ -196,7 +196,7 @@ pytest
 
 ## Authors & Maintainers
 
-* **Harshit Trivedi** — *Software Architect & Core Implementation* ([GitHub](https://github.com/harsh))
+* **Harshit Trivedi** — *Software Architect & Core Implementation* ([GitHub](https://github.com/AquillaRival))
 * **Dr. Masum Raj** — *Professor of Mathematics, Academic Mentorship & Theoretical Mathematical Verification*
 
 ---
