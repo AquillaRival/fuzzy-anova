@@ -205,8 +205,6 @@ pytest
 
 Special gratitude to **Dr. Masum Raj** for mathematics mentorship, guiding the research on fuzzy hypothesis testing, and validating the numerical proofs and formulations from Wu (2007).
 
-We also thank the peers and students who assisted with reviewing documentation, testing edge cases, and validating the outputs.
-
 ---
 
 ## References
